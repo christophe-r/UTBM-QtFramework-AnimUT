@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>images/icon.gif</file>
+    </qresource>
+	
+	<qresource prefix="/images">
+        <file>images/logo128.png</file>
+    </qresource>
+	
+	<qresource prefix="/graphics">
+        <file>images/mario.gif</file>
+    </qresource>
+</RCC>
