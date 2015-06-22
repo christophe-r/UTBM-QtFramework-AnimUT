@@ -23,21 +23,19 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
-#include "ui_AnimUT.h"
+#include <QToolBar>
 
+#include "ui_AnimUT.h"
 #include "Controls.h"
 
-Controls::Controls(Ui::AnimUT* ui)
+Controls::Controls(Ui::AnimUT* ui, QToolBar *toolBar)
 {
     this->ui = ui;
     layout = ui->ControlsLayout;
-    controlButton = NULL;
+    this->toolBar = toolBar;
 }
 
-Controls::~Controls()
-{
-    delete controlButton;
-}
+Controls::~Controls() {}
 
 /**
  * @brief Controls::addButton Easily add a button in the control list
@@ -186,7 +184,7 @@ void Controls::addItem(QWidget *widget)
 }
 
 /**
- * @brief Controls::addAnimationControl Easily add a full connect button to control animation
+ * @brief Controls::addAnimationControl Easily add a full connected action to control animation
  * @param amimate     - Animate - The animation object you want to connect
  * @param myFrameRate -   int   - The number of frames per second in the animation, default: 20 frames/second
  */
@@ -194,22 +192,40 @@ void Controls::addAnimationControl(Animate *amimate, int myFrameRate)
 {
     controlAnimate = amimate;
     frameRate = myFrameRate;
-    controlButton = addButton("Start");
-    connect(controlButton, SIGNAL(released()), this, SLOT(animationControl())); // connect different signal to the button
     connect(ui->actionStartStop, SIGNAL(triggered()), this, SLOT(animationControl()));
+
+    toolBar->addAction(ui->actionStartStop);
 }
+
+/**
+ * @brief Controls::addResetControl Easily add a full connected action to reset animation
+ * @param app     - AnimUT - The app where the resetAnimation() method should be called
+ */
+void Controls::addResetControl(AnimUT *app)
+{
+    // Adding action to menu and connects it to the app's reset slot
+    QAction *actionReset = new QAction((QObject*)app);
+    actionReset->setText("Reset");
+    actionReset->setShortcut(QKeySequence(tr("Ctrl+R")));
+    actionReset->setIcon(QIcon(":/icons/images/reset.png"));
+    ui->menuAnimation->addAction(actionReset);
+    connect(actionReset, SIGNAL(triggered()), (QObject*)app, SLOT(resetAnimation()));
+
+    toolBar->addAction(actionReset);
+}
+
 
 /**
  * @brief Controls::animationControl Method used to control the animation
  */
 void Controls::animationControl(){
     if (controlAnimate->isRunning()) {
-        controlButton->setText("Start");
         ui->actionStartStop->setText("Start");
+        ui->actionStartStop->setIcon(QIcon(":/icons/images/play.png"));
         controlAnimate->stop();
     } else {
-        controlButton->setText("Stop");
         ui->actionStartStop->setText("Stop");
+        ui->actionStartStop->setIcon(QIcon(":/icons/images/stop.png"));
         controlAnimate->start(frameRate);
     }
 }

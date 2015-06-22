@@ -19,24 +19,10 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_controls">
-      <property name="text">
-       <string>Controls</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
-     <widget class="QLabel" name="label_visualization">
-      <property name="text">
-       <string>Visualization</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
      <widget class="Viewer" name="MainGraphicsView"/>
     </item>
-    <item row="1" column="0">
+    <item row="0" column="0">
      <layout class="QVBoxLayout" name="ControlsLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetNoConstraint</enum>
@@ -51,7 +37,7 @@
      <x>0</x>
      <y>0</y>
      <width>738</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -78,6 +64,10 @@
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionStartStop">
+   <property name="icon">
+    <iconset resource="../images.qrc">
+     <normaloff>:/icons/images/play.png</normaloff>:/icons/images/play.png</iconset>
+   </property>
    <property name="text">
     <string>Start</string>
    </property>

@@ -40,7 +40,6 @@ public:
 private:
     void stopThreads();
     bool started;
-    QPushButton *startResetBtn;
     QGraphicsTextItem *philosophersGraphic[NB_PHILOSOPHERS];
 
     QMutex *forks[NB_PHILOSOPHERS];
@@ -50,7 +49,7 @@ private:
 
 private slots:
     void updateState(int i, bool bold, const QString &value);
-    void on_startResetBtn_clicked();
+    void animationStartStop();
 };
 
 #endif // DININGPHILOSOPHERS_H

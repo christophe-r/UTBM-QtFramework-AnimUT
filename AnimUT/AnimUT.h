@@ -52,6 +52,7 @@ protected:
     Animate *animate;
     QGraphicsScene *scene;
     Ui::AnimUT *ui;
+    QToolBar *toolBar;
 
 private slots:
     void on_actionQuit_triggered();

@@ -36,12 +36,14 @@
 #include "Animate.h"
 #include "ui_AnimUT.h"
 
+class AnimUT;
+
 class Controls : protected QWidget
 {
     Q_OBJECT
 
 public:
-    Controls(Ui::AnimUT* ui);
+    Controls(Ui::AnimUT* ui, QToolBar *toolBar);
     ~Controls();
     QPushButton *addButton(QString buttonName);
     QFrame *addDivider();
@@ -56,13 +58,14 @@ public:
     QCheckBox *addCheckBox(QString name);
     void addItem(QWidget *widget);
     void addAnimationControl(Animate *amimate, int myFrameRate = 50);
+    void addResetControl(AnimUT *app);
 
 protected:
     QVBoxLayout *layout;
     Ui::AnimUT *ui;
     int frameRate;
-    QPushButton *controlButton;
     Animate *controlAnimate;
+    QToolBar *toolBar;
 
 signals:
 

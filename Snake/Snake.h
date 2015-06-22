@@ -38,6 +38,7 @@ public:
     ~Snake();
     void drawBorders();
     virtual void keyReleaseEvent(QKeyEvent *event);
+
 private:
     SnakeItem *snakeItem;
     int cellSize;

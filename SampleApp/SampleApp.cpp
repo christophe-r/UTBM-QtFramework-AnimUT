@@ -29,9 +29,8 @@ SampleApp::SampleApp():AnimUT()
 #ifdef DEBUG
     qDebug("SampleApp launched");
 #endif
-    controls->addLabel("Animation");
     controls->addAnimationControl(animate, 1000/100);
-    controls->addDivider();
+    controls->addResetControl(this);
 
     // controls
     controls->addLabel("Movements");
@@ -65,6 +64,15 @@ SampleApp::SampleApp():AnimUT()
 
 SampleApp::~SampleApp() {}
 
+void SampleApp::resetAnimation()
+{
+    if( animate->isRunning() ) controls->animationControl();
+
+    objects[0]->setPos(10, 10);
+    objects[1]->setPos(100, 100);
+    objects[2]->setPos(200, 100);
+    objects[3]->setPos(200, 200);
+}
 
 void SampleApp::keyReleaseEvent(QKeyEvent * event)
 {

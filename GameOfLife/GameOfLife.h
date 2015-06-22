@@ -50,7 +50,7 @@ public:
 
 public slots:
     void updateIterLabel(int iteration);
-    void resetGame();
+    void resetAnimation();
     void drawGrid(bool activate);
     void setFrameRate(int nbFrame);
     void animationControl();

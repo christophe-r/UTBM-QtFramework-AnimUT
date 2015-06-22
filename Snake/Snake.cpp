@@ -32,9 +32,7 @@ Snake::Snake():AnimUT()
     qDebug("Snake launched");
 #endif
 
-    controls->addLabel("Animation");
     controls->addAnimationControl(animate, 200);
-    controls->addDivider();
 
     cellSize = 15;
     nbCells = 20;

@@ -44,10 +44,8 @@ GameOfLife::GameOfLife():AnimUT()
     bool displayGrid = true;
 
     // add controls
-    controls->addLabel("Animation");
     controls->addAnimationControl(animate, frameRate);
-    QPushButton *resetButton = controls->addButton("Reset");
-    controls->addDivider();
+    controls->addResetControl(this);
 
     QCheckBox *showGridButton = controls->addCheckBox("Show grid");
     connect(showGridButton, SIGNAL(toggled(bool)), this, SLOT( drawGrid(bool)));
@@ -73,7 +71,6 @@ GameOfLife::GameOfLife():AnimUT()
 
     cells = new Cells(cellSize, nbCells); // create a board of cells
     connect(cells, SIGNAL(newIteration(int)), this, SLOT(updateIterLabel(int)));
-    connect(resetButton, SIGNAL(released()), this, SLOT(resetGame()));
 
     cells->addAliveCell(14,15);
     cells->addAliveCell(15,15);
@@ -95,8 +92,10 @@ GameOfLife::~GameOfLife()
 /**
  * @brief GameOfLife::resetGame
  */
-void GameOfLife::resetGame()
+void GameOfLife::resetAnimation()
 {
+    if( animate->isRunning() ) controls->animationControl();
+
     updateIterLabel(0);
     cells->resetBoard();
     setRpentomino();

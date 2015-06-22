@@ -41,6 +41,9 @@ public:
     virtual void keyReleaseEvent(QKeyEvent * event);
     ~SampleApp();
 
+public slots:
+    void resetAnimation();
+
 };
 
 #endif // SAMPLEAPP_H

@@ -27,6 +27,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui(new Ui::AboutWindow)
 {
     ui->setupUi(this);
+    setFixedSize(size());
 }
 
 void AboutWindow::on_okBtn_clicked(){

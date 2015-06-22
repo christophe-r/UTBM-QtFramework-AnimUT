@@ -27,7 +27,8 @@
 AnimUT::AnimUT(QWidget *parent): QMainWindow(parent), ui(new Ui::AnimUT)
 {
     ui->setupUi(this);
-    controls = new Controls(ui); // start control managment
+    toolBar = this->addToolBar("Animation toolbar");
+    controls = new Controls(ui, toolBar); // start control managment
     ui->ControlsLayout->setAlignment(Qt::AlignTop);
     viewer = ui->MainGraphicsView;
     scene =  viewer->getScene();// start graphic view managment
@@ -60,6 +61,7 @@ void AnimUT::on_actionAbout_triggered()
     aboutWindow = new AboutWindow();
     aboutWindow->show();
 }
+
 
 /**
  * @brief AnimUT::launchWorker Launch and connect a worker into a thread (This does not start the thread)

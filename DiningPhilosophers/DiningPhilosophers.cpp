@@ -20,6 +20,7 @@
  */
 
 #include <QDebug>
+#include <QToolBar>
 
 #include "DiningPhilosophers.h"
 #include "Philosopher.h"
@@ -30,9 +31,11 @@ DiningPhilosophers::DiningPhilosophers():AnimUT()
     qDebug("Dining Philosophers launched");
 #endif
 
-    startResetBtn = controls->addButton("Start");
-    connect(startResetBtn, SIGNAL(clicked()), this, SLOT(on_startResetBtn_clicked()));
-    connect(ui->actionStartStop, SIGNAL(triggered()), this, SLOT(on_startResetBtn_clicked()));
+
+    connect(ui->actionStartStop, SIGNAL(triggered()), this, SLOT(animationStartStop()));
+    toolBar->addAction(ui->actionStartStop);
+
+
     started = false;
 
     for(int i=0; i < NB_PHILOSOPHERS; i++){ // initialize forks mutex locks and graphics
@@ -59,7 +62,6 @@ DiningPhilosophers::~DiningPhilosophers()
 {
     if( started ) stopThreads();
     delete *philosophersGraphic;
-    delete startResetBtn;
 }
 
 void DiningPhilosophers::stopThreads(){
@@ -83,11 +85,13 @@ void DiningPhilosophers::updateState(int i, bool bold, const QString &value){
     }
 }
 
-void DiningPhilosophers::on_startResetBtn_clicked()
+void DiningPhilosophers::animationStartStop()
 {
     if( !started ){
         started = true;
-        startResetBtn->setText("Reset");
+        //startResetBtn->setText("Reset");
+        ui->actionStartStop->setText("Stop");
+        ui->actionStartStop->setIcon(QIcon(":/icons/images/stop.png"));
 
         for( int i=0; i<NB_PHILOSOPHERS; i++ ){ // initialize and run philosopher threads
             philosophers[i] = new Philosopher(i, forks);
@@ -98,7 +102,9 @@ void DiningPhilosophers::on_startResetBtn_clicked()
 
     } else {
         started = false;
-        startResetBtn->setText("Start");
+        //startResetBtn->setText("Start");
+        ui->actionStartStop->setText("Start");
+        ui->actionStartStop->setIcon(QIcon(":/icons/images/play.png"));
         stopThreads();
     }
 }
